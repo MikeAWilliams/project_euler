@@ -8,7 +8,10 @@ import (
 func isPrime(num int) bool {
 	maxf := math.Sqrt(float64(num))
 	max := int(maxf)
-	for i := 2; i <= max; i++ {
+	if num%2 == 0 {
+		return false
+	}
+	for i := 3; i <= max; i += 2 {
 		if num%i == 0 {
 			return false
 		}
