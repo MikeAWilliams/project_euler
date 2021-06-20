@@ -16,18 +16,17 @@ func isPrime(num int) bool {
 	return true
 }
 
-func findNthPrime(n int) int {
-	candidate := 2
-	for found := 0; found < n; {
+func sumPrimesBelow(max int) int {
+	result := 2
+	for candidate := 3; candidate < max; candidate += 2 {
 		if isPrime(candidate) {
-			found += 1
+			result += candidate
 		}
-		candidate++
 	}
-	return candidate - 1
+	return result
 }
 
 func main() {
-	fmt.Println(findNthPrime(6))
-	fmt.Println(findNthPrime(10001))
+	fmt.Println(sumPrimesBelow(10))
+	fmt.Println(sumPrimesBelow(2000000))
 }
