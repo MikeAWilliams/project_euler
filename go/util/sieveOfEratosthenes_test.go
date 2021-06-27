@@ -16,6 +16,8 @@ func TestSieve(t *testing.T) {
 	require.Equal(t, 168, util.CountPrimeFlags(below1000))
 	below10000 := util.GetPrimesBelowFlags(10000)
 	require.Equal(t, 1229, util.CountPrimeFlags(below10000))
+	below10000000 := util.GetPrimesBelowFlags(10000000)
+	require.Equal(t, 664579, util.CountPrimeFlags(below10000000))
 }
 
 func BenchmarkSieve(b *testing.B) {
