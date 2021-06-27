@@ -1,6 +1,6 @@
 package util
 
-func getInitialSlice(n int) []bool {
+func getInitialFlags(n int) []bool {
 	result := make([]bool, n-1)
 	for i := range result {
 		result[i] = true
@@ -8,8 +8,8 @@ func getInitialSlice(n int) []bool {
 	return result
 }
 
-func GetPrimesBelow(n int) []bool {
-	candidates := getInitialSlice(n)
+func GetPrimesBelowFlags(n int) []bool {
+	candidates := getInitialFlags(n)
 	candidateIndex := 0
 	candidate := candidateIndex + 2
 	for candidate*candidate < n {
@@ -22,11 +22,21 @@ func GetPrimesBelow(n int) []bool {
 	return candidates
 }
 
-func CountTrue(in []bool) int {
+func CountPrimeFlags(flags []bool) int {
 	result := 0
-	for _, item := range in {
+	for _, item := range flags {
 		if item {
 			result++
+		}
+	}
+	return result
+}
+
+func GetPrimes(flags []bool) []int {
+	result := []int{}
+	for index, flag := range flags {
+		if flag {
+			result = append(result, index+2)
 		}
 	}
 	return result
