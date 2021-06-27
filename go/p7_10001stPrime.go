@@ -2,32 +2,25 @@ package main
 
 import (
 	"fmt"
-	"math"
+	"maw/util"
 )
 
-func isPrime(num int) bool {
-	maxf := math.Sqrt(float64(num))
-	max := int(maxf)
-	for i := 2; i <= max; i++ {
-		if num%i == 0 {
-			return false
-		}
-	}
-	return true
-}
-
 func findNthPrime(n int) int {
-	candidate := 2
-	for found := 0; found < n; {
-		if isPrime(candidate) {
-			found += 1
+	flags := util.GetPrimesBelowFlags(n * 100)
+	count := 0
+	for index, flag := range flags {
+		if flag {
+			count++
+			if count == n {
+				return index + 2
+			}
 		}
-		candidate++
 	}
-	return candidate - 1
+	return -1
 }
 
 func main() {
-	fmt.Println(findNthPrime(6))
-	fmt.Println(findNthPrime(10001))
+	result := findNthPrime(10001)
+	fmt.Printf("result %v\n", result)
+	fmt.Printf("delta %v", 104743-result)
 }
