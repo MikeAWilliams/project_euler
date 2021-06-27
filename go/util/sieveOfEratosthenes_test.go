@@ -21,7 +21,9 @@ func TestSieve(t *testing.T) {
 }
 
 func BenchmarkSieve(b *testing.B) {
+	var result []bool
 	for n := 0; n < b.N; n++ {
-		util.GetPrimesBelowFlags(10000)
+		result = util.GetPrimesBelowFlags(10000)
 	}
+	result[0] = true
 }
