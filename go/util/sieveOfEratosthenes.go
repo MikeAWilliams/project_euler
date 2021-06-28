@@ -17,7 +17,8 @@ func GetPrimesBelowFlags(n int) []bool {
 		for indexToRemove := candidateIndex + candidate; indexToRemove < len(candidates); indexToRemove += candidate {
 			candidates[indexToRemove] = false
 		}
-		candidateIndex++
+		for candidateIndex += 2; !candidates[candidateIndex]; candidateIndex += 2 {
+		}
 		candidate = candidateIndex + 2
 	}
 	return candidates
