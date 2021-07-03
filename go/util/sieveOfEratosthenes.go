@@ -1,9 +1,9 @@
 package util
 
 func getInitialFlags(n int) []bool {
-	result := make([]bool, n-1)
-	result[0] = true
-	for i := 1; i < len(result); i += 2 {
+	result := make([]bool, n+1)
+	result[2] = true
+	for i := 3; i < len(result); i += 2 {
 		result[i] = true
 	}
 	return result
@@ -11,15 +11,13 @@ func getInitialFlags(n int) []bool {
 
 func GetPrimesBelowFlags(n int) []bool {
 	candidates := getInitialFlags(n)
-	candidateIndex := 1
-	candidate := candidateIndex + 2
+	candidate := 3
 	for candidate*candidate < n {
-		for indexToRemove := candidateIndex + candidate; indexToRemove < len(candidates); indexToRemove += candidate {
+		for indexToRemove := candidate + candidate; indexToRemove < len(candidates); indexToRemove += candidate {
 			candidates[indexToRemove] = false
 		}
-		for candidateIndex += 2; !candidates[candidateIndex]; candidateIndex += 2 {
+		for candidate += 2; !candidates[candidate]; candidate += 2 {
 		}
-		candidate = candidateIndex + 2
 	}
 	return candidates
 }
