@@ -33,6 +33,12 @@ func SumLargeInt(data [][]int) []int {
 		result = append([]int{sumForThisDigit}, result...)
 	}
 	if caryValue > 0 {
+		sumForThisDigit := caryValue
+		for caryValue > 9 {
+			caryValue = sumForThisDigit / 10
+			sumForThisDigit = sumForThisDigit % 10
+			result = append([]int{sumForThisDigit}, result...)
+		}
 		result = append([]int{caryValue}, result...)
 	}
 
