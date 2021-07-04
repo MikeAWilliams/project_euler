@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func maxTraverse(input [][]int) int {
+func maxTraverseGready(input [][]int) int {
 	result := input[0][0]
 	index := 0
 	for row := 1; row < len(input); row++ {
@@ -29,7 +29,7 @@ func main() {
 		{2, 4, 6},
 		{8, 5, 9, 3},
 	}
-	fmt.Println(maxTraverse(simpleIn))
+	fmt.Println(maxTraverseGready(simpleIn))
 	hardIn := [][]int{
 		{75},
 		{95, 64},
@@ -47,5 +47,5 @@ func main() {
 		{63, 66, 04, 68, 89, 53, 67, 30, 73, 16, 69, 87, 40, 31},
 		{4, 62, 98, 27, 23, 9, 70, 98, 73, 93, 38, 53, 60, 04, 23},
 	}
-	fmt.Println(maxTraverse(hardIn))
+	fmt.Println(maxTraverseGready(hardIn))
 }
