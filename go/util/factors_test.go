@@ -18,5 +18,6 @@ func TestFactors(t *testing.T) {
 	requireEqualSlices(t, []int{1}, util.GetFactors(1))
 	requireEqualSlices(t, []int{1, 3}, util.GetFactors(3))
 	requireEqualSlices(t, []int{1, 2, 3, 6}, util.GetFactors(6))
+	requireEqualSlices(t, []int{1, 2, 4, 7, 14, 28}, util.GetFactors(28))
 
 }
