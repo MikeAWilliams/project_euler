@@ -23,9 +23,9 @@ func GetPrimesBelowFlags(n int) []bool {
 }
 
 func CountPrimeFlags(flags []bool) int {
-	result := 0
-	for _, item := range flags {
-		if item {
+	result := 1
+	for index := 3; index < len(flags); index += 2 {
+		if flags[index] {
 			result++
 		}
 	}
