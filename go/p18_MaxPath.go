@@ -22,6 +22,43 @@ func maxTraverseGready(input [][]int) int {
 	return result
 }
 
+func pickBestMoveInLookAhead(input [][]int, depth int, currentIndex int, row int, accumulator int) (int, int) {
+	if 1 == depth {
+		down := input[row][currentIndex]
+		downRight := 0
+		if currentIndex < len(input[row])-1 {
+			downRight = input[row][currentIndex+1]
+		}
+		if down > downRight {
+			return currentIndex, accumulator + down
+		}
+		return currentIndex + 1, accumulator + downRight
+	}
+	_, downResult := pickBestMoveInLookAhead(input, depth-1, currentIndex, row+1, accumulator+input[row][currentIndex])
+	rightResult := 0
+	if currentIndex < len(input[row])-1 {
+		_, rightResult = pickBestMoveInLookAhead(input, depth-1, currentIndex+1, row+1, accumulator+input[row][currentIndex+1])
+	}
+	if downResult > rightResult {
+		return currentIndex, downResult
+	}
+	return currentIndex + 1, rightResult
+}
+
+func maxTraverseLookAhead(input [][]int, depth int) int {
+	result := input[0][0]
+	index := 0
+	for row := 1; row < len(input); row++ {
+		searchDepth := depth
+		if row+searchDepth > len(input) {
+			searchDepth = len(input) - row
+		}
+		index, _ = pickBestMoveInLookAhead(input, searchDepth, index, row, 0)
+		result += input[row][index]
+	}
+	return result
+}
+
 func main() {
 	simpleIn := [][]int{
 		{3},
@@ -29,7 +66,7 @@ func main() {
 		{2, 4, 6},
 		{8, 5, 9, 3},
 	}
-	fmt.Println(maxTraverseGready(simpleIn))
+	fmt.Println(maxTraverseLookAhead(simpleIn, 3))
 	hardIn := [][]int{
 		{75},
 		{95, 64},
@@ -48,4 +85,6 @@ func main() {
 		{4, 62, 98, 27, 23, 9, 70, 98, 73, 93, 38, 53, 60, 04, 23},
 	}
 	fmt.Println(maxTraverseGready(hardIn))
+	//14 is max search depth makes this brute fource
+	fmt.Println(maxTraverseLookAhead(hardIn, 14))
 }
