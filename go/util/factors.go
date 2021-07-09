@@ -1,6 +1,7 @@
 package util
 
 import (
+	"fmt"
 	"math"
 	"sort"
 )
@@ -19,4 +20,23 @@ func GetFactors(n int) []int {
 	}
 	sort.Ints(result)
 	return result
+}
+
+func GetPrimeFactors(n int, allPrimesBelowN []int) []int {
+	result := []int{}
+	fmt.Printf("primes %v\n", allPrimesBelowN)
+	for _, prime := range allPrimesBelowN {
+		fmt.Printf("prime %v\n", prime)
+		remainder := n % prime
+		for remainder == 0 {
+			result = append(result, prime)
+			n = n / prime
+			remainder = n % prime
+		}
+	}
+	return result
+}
+
+func GetFactorsViaPrimes(n int, primeFactors []int) []int {
+	return []int{}
 }

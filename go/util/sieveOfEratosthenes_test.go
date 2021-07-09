@@ -20,6 +20,11 @@ func TestSieve(t *testing.T) {
 	require.Equal(t, 664579, util.CountPrimeFlags(below10000000))
 }
 
+func TestGetPrimes(t *testing.T) {
+	twentyFlags := util.GetPrimesBelowFlags(20)
+	requireEqualSlices(t, []int{2, 3, 5, 7, 11, 13, 17, 19}, util.GetPrimes(twentyFlags))
+}
+
 func BenchmarkSieve(b *testing.B) {
 	var result []bool
 	for n := 0; n < b.N; n++ {
