@@ -22,21 +22,55 @@ func GetFactors(n int) []int {
 	return result
 }
 
-func GetPrimeFactors(n int, allPrimesBelowN []int) []int {
+func GetPrimeFactors(n int, primesToN []int) []int {
 	result := []int{}
-	fmt.Printf("primes %v\n", allPrimesBelowN)
-	for _, prime := range allPrimesBelowN {
-		fmt.Printf("prime %v\n", prime)
+	stop := n
+	for _, prime := range primesToN {
 		remainder := n % prime
 		for remainder == 0 {
 			result = append(result, prime)
 			n = n / prime
 			remainder = n % prime
 		}
+		if prime >= stop {
+			break
+		}
 	}
 	return result
 }
 
+func CountConsecutiveNumbers(numbers []int) map[int]int {
+	result := map[int]int{}
+	if 0 == len(numbers) {
+		return result
+	}
+	count := 0
+	lastNumber := numbers[0]
+	for _, value := range numbers {
+		if lastNumber == value {
+			count++
+		} else {
+			result[lastNumber] = count
+			lastNumber = value
+			count = 1
+		}
+	}
+	result[lastNumber] = count
+	return result
+}
+
 func GetFactorsViaPrimes(n int, primeFactors []int) []int {
-	return []int{}
+	result := []int{1}
+	// https://math.stackexchange.com/questions/2782625/how-to-get-all-the-factors-of-a-number-using-its-prime-factorization
+	fmt.Printf("Primes %v\n", primeFactors)
+	countedPrimes := CountConsecutiveNumbers(primeFactors)
+	for prime, count := range countedPrimes {
+		toAdd := prime
+		for i := 0; i < count; i++ {
+			result = append(result, toAdd)
+			toAdd *= prime
+		}
+	}
+	sort.Ints(result)
+	return result
 }
