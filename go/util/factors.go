@@ -79,6 +79,14 @@ func computeFactor(primePowers []primeFactorPower) int {
 	return result
 }
 
+func countFactors(primePowers []primeFactorPower) int {
+	result := 1
+	for _, prime := range primePowers {
+		result *= len(prime.powers)
+	}
+	return result
+}
+
 func buildPrimeFactorPower(prime int, count int) primeFactorPower {
 	result := primeFactorPower{prime: prime}
 	power := 1
@@ -113,14 +121,17 @@ func GetFactorsViaPrimes(n int, primeFactors []int) []int {
 	if 1 == n {
 		return []int{1}
 	}
-	result := []int{}
 	// https://math.stackexchange.com/questions/2782625/how-to-get-all-the-factors-of-a-number-using-its-prime-factorization
 	countedPrimes := getPrimeFactorPowers(primeFactors)
+	result := make([]int, countFactors(countedPrimes))
+	resultIndex := 0
+
 	changingIndex := len(countedPrimes) - 1
 	topChangingIndex := len(countedPrimes) - 1
 	stop := false
 	for !stop {
-		result = append(result, computeFactor(countedPrimes))
+		result[resultIndex] = computeFactor(countedPrimes)
+		resultIndex++
 		roll := countedPrimes[changingIndex].increment()
 		for roll {
 			if topChangingIndex == changingIndex {
