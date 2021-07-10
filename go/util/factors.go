@@ -1,7 +1,6 @@
 package util
 
 import (
-	"fmt"
 	"math"
 	"sort"
 )
@@ -39,36 +38,90 @@ func GetPrimeFactors(n int, primesToN []int) []int {
 	return result
 }
 
-func CountConsecutiveNumbers(numbers []int) map[int]int {
-	result := map[int]int{}
+type primeFactorPower struct {
+	prime  int
+	powers []int
+	index  int
+}
+
+func (p *primeFactorPower) increment() bool {
+	if p.index < len(p.powers)-1 {
+		p.index++
+		return false
+	}
+	p.index = 0
+	return true
+}
+
+func (p *primeFactorPower) value() int {
+	return p.powers[p.index]
+}
+
+func computeFactor(primePowers []primeFactorPower) int {
+	result := 1
+	for _, prime := range primePowers {
+		result *= prime.value()
+	}
+	return result
+}
+
+func buildPrimeFactorPower(prime int, count int) primeFactorPower {
+	result := primeFactorPower{prime: prime}
+	power := 1
+	for i := 0; i <= count; i++ {
+		result.powers = append(result.powers, power)
+		power *= result.prime
+	}
+	return result
+}
+
+func getPrimeFactorPowers(numbers []int) []primeFactorPower {
+	result := []primeFactorPower{}
 	if 0 == len(numbers) {
 		return result
 	}
 	count := 0
-	lastNumber := numbers[0]
+	lastValue := numbers[0]
 	for _, value := range numbers {
-		if lastNumber == value {
+		if lastValue == value {
 			count++
 		} else {
-			result[lastNumber] = count
-			lastNumber = value
+			result = append(result, buildPrimeFactorPower(lastValue, count))
+			lastValue = value
 			count = 1
 		}
 	}
-	result[lastNumber] = count
+	result = append(result, buildPrimeFactorPower(lastValue, count))
 	return result
 }
 
 func GetFactorsViaPrimes(n int, primeFactors []int) []int {
-	result := []int{1}
+	if 1 == n {
+		return []int{1}
+	}
+	result := []int{}
 	// https://math.stackexchange.com/questions/2782625/how-to-get-all-the-factors-of-a-number-using-its-prime-factorization
-	fmt.Printf("Primes %v\n", primeFactors)
-	countedPrimes := CountConsecutiveNumbers(primeFactors)
-	for prime, count := range countedPrimes {
-		toAdd := prime
-		for i := 0; i < count; i++ {
-			result = append(result, toAdd)
-			toAdd *= prime
+	countedPrimes := getPrimeFactorPowers(primeFactors)
+	changingIndex := len(countedPrimes) - 1
+	topChangingIndex := len(countedPrimes) - 1
+	stop := false
+	for !stop {
+		result = append(result, computeFactor(countedPrimes))
+		roll := countedPrimes[changingIndex].increment()
+		for roll {
+			if topChangingIndex == changingIndex {
+				if 0 == topChangingIndex {
+					stop = true
+					break
+				}
+				topChangingIndex--
+			}
+			roll = countedPrimes[changingIndex-1].increment()
+			if roll {
+				changingIndex--
+			} else {
+				changingIndex = len(countedPrimes) - 1
+			}
 		}
 	}
 	sort.Ints(result)
