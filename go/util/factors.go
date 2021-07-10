@@ -5,6 +5,20 @@ import (
 	"sort"
 )
 
+type FactorList struct {
+	N          int
+	FactorsOfN []int
+}
+
+func GetFactorsForAllNumbersBelowNUsingDivision(n int) []FactorList {
+	result := make([]FactorList, n)
+	for i := 1; i <= n; i++ {
+		result[i-1].N = i
+		result[i-1].FactorsOfN = GetFactors(i)
+	}
+	return result
+}
+
 func GetFactors(n int) []int {
 	result := []int{1}
 	if n > 1 {
@@ -125,5 +139,16 @@ func GetFactorsViaPrimes(n int, primeFactors []int) []int {
 		}
 	}
 	sort.Ints(result)
+	return result
+}
+
+func GetFactorsForAllNumbersBelowNUsingPrimes(n int) []FactorList {
+	primeFlags := GetPrimesBelowFlags(n)
+	primes := GetPrimes(primeFlags)
+	result := make([]FactorList, n)
+	for i := 1; i <= n; i++ {
+		result[i-1].N = i
+		result[i-1].FactorsOfN = GetFactorsViaPrimes(i, GetPrimeFactors(i, primes))
+	}
 	return result
 }

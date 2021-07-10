@@ -49,6 +49,14 @@ func TestFactors(t *testing.T) {
 	requireEqualSlices(t, []int{1, 2, 4, 5, 10, 20, 25, 50, 100, 125, 250, 500}, util.GetFactors(500))
 }
 
+func BenchmarkFactorsByDivision(b *testing.B) {
+	var result []util.FactorList
+	for n := 0; n < b.N; n++ {
+		result = util.GetFactorsForAllNumbersBelowNUsingDivision(28123)
+	}
+	result[0].N = 1
+}
+
 func TestGetPrimeFactors(t *testing.T) {
 	primeFlagsBelow1000 := util.GetPrimesBelowFlags(1000)
 	primesBelow1000 := util.GetPrimes(primeFlagsBelow1000)
@@ -70,4 +78,12 @@ func TestGetFactorsViaPrimes(t *testing.T) {
 	requireEqualSlices(t, []int{1, 2, 3, 4, 6, 9, 12, 18, 27, 36, 54, 81, 108, 162, 324}, util.GetFactorsViaPrimes(324, util.GetPrimeFactors(324, primesBelow1000)))
 	requireEqualSlices(t, []int{1, 2, 3, 4, 5, 6, 7, 10, 12, 14, 15, 20, 21, 28, 30, 35, 42, 60, 70, 84, 105, 140, 210, 420}, util.GetFactorsViaPrimes(420, util.GetPrimeFactors(420, primesBelow1000)))
 	requireEqualSlices(t, []int{1, 2, 4, 5, 10, 20, 25, 50, 100, 125, 250, 500}, util.GetFactorsViaPrimes(500, util.GetPrimeFactors(500, primesBelow1000)))
+}
+
+func BenchmarkFactorsByPrimes(b *testing.B) {
+	var result []util.FactorList
+	for n := 0; n < b.N; n++ {
+		result = util.GetFactorsForAllNumbersBelowNUsingPrimes(28123)
+	}
+	result[0].N = 1
 }
