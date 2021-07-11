@@ -35,16 +35,31 @@ func GetFactors(n int) []int {
 	return result
 }
 
+func isPrime(target int, startIndex int, data []int) bool {
+	for index := startIndex; index < len(data) && data[index] <= target; index++ {
+		if target == data[index] {
+			return true
+		}
+	}
+	return false
+}
+
 func GetPrimeFactors(n int, primesToN []int) []int {
 	result := []int{}
-	for _, prime := range primesToN {
+	for primeIndex, prime := range primesToN {
 		remainder := n % prime
+		changedN := false
 		for remainder == 0 {
 			result = append(result, prime)
 			n = n / prime
 			remainder = n % prime
+			changedN = true
 		}
 		if prime > n {
+			break
+		}
+		if changedN && isPrime(n, primeIndex, primesToN) {
+			result = append(result, n)
 			break
 		}
 	}
@@ -158,7 +173,8 @@ func GetFactorsForAllNumbersBelowNUsingPrimes(n int) []FactorList {
 	result := make([]FactorList, n)
 	for i := 1; i <= n; i++ {
 		result[i-1].N = i
-		result[i-1].FactorsOfN = GetFactorsViaPrimes(i, GetPrimeFactors(i, primes))
+		//result[i-1].FactorsOfN = GetFactorsViaPrimes(i, GetPrimeFactors(i, primes))
+		result[i-1].FactorsOfN = GetPrimeFactors(i, primes)
 	}
 	return result
 }
