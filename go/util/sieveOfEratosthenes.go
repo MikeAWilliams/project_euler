@@ -32,9 +32,9 @@ func CountPrimeFlags(flags []bool) int {
 	return result
 }
 
-func GetPrimes(flags []bool) []int {
-	result := []int{2}
-	for index := 3; index < len(flags); index += 2 {
+func GetPrimes(flags []bool) []uint {
+	result := []uint{2}
+	for index := uint(3); index < uint(len(flags)); index += 2 {
 		if flags[index] {
 			result = append(result, index)
 		}

@@ -35,8 +35,8 @@ func GetFactors(n int) []int {
 	return result
 }
 
-func isPrime(target int, startIndex int, data []int) bool {
-	stopIndex := len(data) - 1
+func isPrime(target uint, startIndex uint, data []uint) bool {
+	stopIndex := uint(len(data) - 1)
 	for startIndex <= stopIndex {
 		index := (stopIndex + startIndex) / 2
 		if data[index] == target {
@@ -52,8 +52,8 @@ func isPrime(target int, startIndex int, data []int) bool {
 	return false
 }
 
-func GetPrimeFactors(n int, primesToN []int) []int {
-	result := []int{}
+func GetPrimeFactors(n uint, primesToN []uint) []uint {
+	result := []uint{}
 	for primeIndex, prime := range primesToN {
 		remainder := n % prime
 		changedN := false
@@ -66,7 +66,7 @@ func GetPrimeFactors(n int, primesToN []int) []int {
 		if prime > n {
 			break
 		}
-		if changedN && isPrime(n, primeIndex, primesToN) {
+		if changedN && isPrime(n, uint(primeIndex), primesToN) {
 			result = append(result, n)
 			break
 		}
@@ -75,8 +75,8 @@ func GetPrimeFactors(n int, primesToN []int) []int {
 }
 
 type primeFactorPower struct {
-	prime  int
-	powers []int
+	prime  uint
+	powers []uint
 	index  int
 }
 
@@ -89,12 +89,12 @@ func (p *primeFactorPower) increment() bool {
 	return true
 }
 
-func (p *primeFactorPower) value() int {
+func (p *primeFactorPower) value() uint {
 	return p.powers[p.index]
 }
 
-func computeFactor(primePowers []primeFactorPower) int {
-	result := 1
+func computeFactor(primePowers []primeFactorPower) uint {
+	result := uint(1)
 	for _, prime := range primePowers {
 		result *= prime.value()
 	}
@@ -109,9 +109,9 @@ func countFactors(primePowers []primeFactorPower) int {
 	return result
 }
 
-func buildPrimeFactorPower(prime int, count int) primeFactorPower {
+func buildPrimeFactorPower(prime uint, count int) primeFactorPower {
 	result := primeFactorPower{prime: prime}
-	power := 1
+	power := uint(1)
 	for i := 0; i <= count; i++ {
 		result.powers = append(result.powers, power)
 		power *= result.prime
@@ -119,7 +119,7 @@ func buildPrimeFactorPower(prime int, count int) primeFactorPower {
 	return result
 }
 
-func getPrimeFactorPowers(numbers []int) []primeFactorPower {
+func getPrimeFactorPowers(numbers []uint) []primeFactorPower {
 	result := []primeFactorPower{}
 	if 0 == len(numbers) {
 		return result
@@ -139,13 +139,13 @@ func getPrimeFactorPowers(numbers []int) []primeFactorPower {
 	return result
 }
 
-func GetFactorsViaPrimes(n int, primeFactors []int) []int {
+func GetFactorsViaPrimes(n uint, primeFactors []uint) []uint {
 	if 1 == n {
-		return []int{1}
+		return []uint{1}
 	}
 	// https://math.stackexchange.com/questions/2782625/how-to-get-all-the-factors-of-a-number-using-its-prime-factorization
 	countedPrimes := getPrimeFactorPowers(primeFactors)
-	result := make([]int, countFactors(countedPrimes))
+	result := make([]uint, countFactors(countedPrimes))
 	resultIndex := 0
 
 	changingIndex := len(countedPrimes) - 1
@@ -171,7 +171,7 @@ func GetFactorsViaPrimes(n int, primeFactors []int) []int {
 			}
 		}
 	}
-	sort.Ints(result)
+	sort.Slice(result, func(i, j int) bool { return result[i] < result[j] })
 	return result
 }
 
@@ -182,7 +182,7 @@ func GetFactorsForAllNumbersBelowNUsingPrimes(n int) []FactorList {
 	for i := 1; i <= n; i++ {
 		result[i-1].N = i
 		//result[i-1].FactorsOfN = GetFactorsViaPrimes(i, GetPrimeFactors(i, primes))
-		result[i-1].FactorsOfN = GetPrimeFactors(i, primes)
+		GetPrimeFactors(uint(i), primes)
 	}
 	return result
 }

@@ -22,7 +22,7 @@ func TestSieve(t *testing.T) {
 
 func TestGetPrimes(t *testing.T) {
 	twentyFlags := util.GetPrimesBelowFlags(20)
-	requireEqualSlices(t, []int{2, 3, 5, 7, 11, 13, 17, 19}, util.GetPrimes(twentyFlags))
+	requireEqualSlicesU(t, []uint{2, 3, 5, 7, 11, 13, 17, 19}, util.GetPrimes(twentyFlags))
 }
 
 func BenchmarkSieveFlags(b *testing.B) {
@@ -35,7 +35,7 @@ func BenchmarkSieveFlags(b *testing.B) {
 }
 
 func BenchmarkSievePrimes(b *testing.B) {
-	var result []int
+	var result []uint
 	flags := util.GetPrimesBelowFlags(10000)
 	for n := 0; n < b.N; n++ {
 		result = util.GetPrimes(flags)
