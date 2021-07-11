@@ -10,11 +10,18 @@ type FactorList struct {
 	FactorsOfN []int
 }
 
+type FactorListU struct {
+	N          uint
+	FactorsOfN []uint
+}
+
 func GetFactorsForAllNumbersBelowNUsingDivision(n int) []FactorList {
 	result := make([]FactorList, n)
 	for i := 1; i <= n; i++ {
-		result[i-1].N = i
-		result[i-1].FactorsOfN = GetFactors(i)
+		go func(index int) {
+			result[index].N = index + 1
+			result[index].FactorsOfN = GetFactors(index + 1)
+		}(i - 1)
 	}
 	return result
 }
@@ -175,14 +182,15 @@ func GetFactorsViaPrimes(n uint, primeFactors []uint) []uint {
 	return result
 }
 
-func GetFactorsForAllNumbersBelowNUsingPrimes(n int) []FactorList {
-	primeFlags := GetPrimesBelowFlags(n)
+func GetFactorsForAllNumbersBelowNUsingPrimes(n uint) []FactorListU {
+	primeFlags := GetPrimesBelowFlags(int(n))
 	primes := GetPrimes(primeFlags)
-	result := make([]FactorList, n)
-	for i := 1; i <= n; i++ {
-		result[i-1].N = i
-		//result[i-1].FactorsOfN = GetFactorsViaPrimes(i, GetPrimeFactors(i, primes))
-		GetPrimeFactors(uint(i), primes)
+	result := make([]FactorListU, n)
+	for i := uint(1); i <= n; i++ {
+		go func(index uint) {
+			result[index].N = index + 1
+			result[index].FactorsOfN = GetFactorsViaPrimes(index+1, GetPrimeFactors(index+1, primes))
+		}(i - 1)
 	}
 	return result
 }

@@ -64,9 +64,9 @@ func TestGetFactorsViaPrimes(t *testing.T) {
 }
 
 func BenchmarkFactorsByPrimes(b *testing.B) {
-	var result []util.FactorList
+	var result []util.FactorListU
 	for n := 0; n < b.N; n++ {
-		result = util.GetFactorsForAllNumbersBelowNUsingPrimes(28123)
+		result = util.GetFactorsForAllNumbersBelowNUsingPrimes(uint(28123))
 	}
 	result[0].N = 1
 }
