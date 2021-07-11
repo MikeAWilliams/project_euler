@@ -5,13 +5,12 @@ import (
 	"maw/util"
 )
 
-func sumPrimesBelow(max int) int {
+func sumPrimesBelow(max int) uint {
 	flags := util.GetPrimesBelowFlags(max)
-	result := 0
-	for index, flag := range flags {
-		if flag {
-			result += index + 2
-		}
+	primes := util.GetPrimes(flags)
+	result := uint(0)
+	for _, prime := range primes {
+		result += prime
 	}
 	return result
 }
