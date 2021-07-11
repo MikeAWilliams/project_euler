@@ -69,6 +69,7 @@ func TestGetPrimeFactors(t *testing.T) {
 }
 
 func BenchmarkGetPrimeFactors(b *testing.B) {
+	// unfair because I am excluding the sieve time
 	primeFlagsBelow1000 := util.GetPrimesBelowFlags(1000)
 	primesBelow1000 := util.GetPrimes(primeFlagsBelow1000)
 	var result []int

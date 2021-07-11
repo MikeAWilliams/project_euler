@@ -25,10 +25,20 @@ func TestGetPrimes(t *testing.T) {
 	requireEqualSlices(t, []int{2, 3, 5, 7, 11, 13, 17, 19}, util.GetPrimes(twentyFlags))
 }
 
-func BenchmarkSieve(b *testing.B) {
+func BenchmarkSieveFlags(b *testing.B) {
 	var result []bool
 	for n := 0; n < b.N; n++ {
 		result = util.GetPrimesBelowFlags(10000)
+		util.GetPrimes(result)
 	}
 	result[0] = true
+}
+
+func BenchmarkSievePrimes(b *testing.B) {
+	var result []int
+	flags := util.GetPrimesBelowFlags(10000)
+	for n := 0; n < b.N; n++ {
+		result = util.GetPrimes(flags)
+	}
+	result[0] = 1
 }
