@@ -36,10 +36,18 @@ func GetFactors(n int) []int {
 }
 
 func isPrime(target int, startIndex int, data []int) bool {
-	for index := startIndex; index < len(data) && data[index] <= target; index++ {
-		if target == data[index] {
+	stopIndex := len(data) - 1
+	for startIndex <= stopIndex {
+		index := (stopIndex + startIndex) / 2
+		if data[index] == target {
 			return true
 		}
+		if data[index] > target {
+			stopIndex = index - 1
+		} else {
+			startIndex = index + 1
+		}
+
 	}
 	return false
 }
