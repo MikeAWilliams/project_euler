@@ -68,7 +68,7 @@ func TestGetPrimeFactors(t *testing.T) {
 	requireEqualSlices(t, []int{3, 3, 3, 37}, util.GetPrimeFactors(999, primesBelow1000))
 }
 
-func BenchmarkPrime(b *testing.B) {
+func BenchmarkGetPrimeFactors(b *testing.B) {
 	primeFlagsBelow1000 := util.GetPrimesBelowFlags(1000)
 	primesBelow1000 := util.GetPrimes(primeFlagsBelow1000)
 	var result []int

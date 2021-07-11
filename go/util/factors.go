@@ -37,7 +37,6 @@ func GetFactors(n int) []int {
 
 func GetPrimeFactors(n int, primesToN []int) []int {
 	result := []int{}
-	stop := n
 	for _, prime := range primesToN {
 		remainder := n % prime
 		for remainder == 0 {
@@ -45,7 +44,7 @@ func GetPrimeFactors(n int, primesToN []int) []int {
 			n = n / prime
 			remainder = n % prime
 		}
-		if prime >= stop {
+		if prime > n {
 			break
 		}
 	}
