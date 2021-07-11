@@ -2,6 +2,7 @@ package util
 
 import (
 	"math"
+	"math/bits"
 	"sort"
 )
 
@@ -62,12 +63,12 @@ func isPrime(target uint, startIndex uint, data []uint) bool {
 func GetPrimeFactors(n uint, primesToN []uint) []uint {
 	result := []uint{}
 	for primeIndex, prime := range primesToN {
-		remainder := n % prime
+		quotient, remainder := bits.Div(0, n, prime)
 		changedN := false
 		for remainder == 0 {
 			result = append(result, prime)
-			n = n / prime
-			remainder = n % prime
+			n = quotient
+			quotient, remainder = bits.Div(0, n, prime)
 			changedN = true
 		}
 		if prime > n {
