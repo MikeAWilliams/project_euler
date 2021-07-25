@@ -58,11 +58,27 @@ func getAbundant(input []abundantCheck) []abundantCheck {
 }
 
 func main() {
-	fmt.Println("hello")
-	properFactors := getProperFactorsForAllNumbersBelow(28123)
+	const maxSearch = 28123
+	properFactors := getProperFactorsForAllNumbersBelow(maxSearch)
 	//properFactors := getProperFactorsForAllNumbersBelow(50)
 	abundantCandidates := getSumOfProperFactors(properFactors)
 	abundants := getAbundant(abundantCandidates)
-	fmt.Println("abundant")
-	fmt.Println(abundants)
+	isSumOfAbundant := make([]bool, maxSearch)
+	for _, abundant1 := range abundants {
+		for _, abundant2 := range abundants {
+			sum := abundant1.n + abundant2.n
+			if sum < maxSearch {
+				isSumOfAbundant[sum] = true
+			} else {
+				break
+			}
+		}
+	}
+	sumCantBeAbundantSum := 0
+	for i := 1; i < maxSearch; i++ {
+		if !isSumOfAbundant[i] {
+			sumCantBeAbundantSum += i
+		}
+	}
+	fmt.Println(sumCantBeAbundantSum)
 }
