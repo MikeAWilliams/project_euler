@@ -31,4 +31,8 @@ func TestDividePrecise(t *testing.T) {
 	requireEqualDivisionResult(t, util.DivisionResult{Whole: 0, FractionDigits: []uint8{1, 4, 2, 8, 5, 7}, Termination: util.Repeats}, seventh)
 	twelfth := util.Divide(1, 12)
 	requireEqualDivisionResult(t, util.DivisionResult{Whole: 0, FractionDigits: []uint8{0, 8, 3}, Termination: util.Repeats}, twelfth)
+
+	ninEightyThree := util.Divide(1, 983)
+	require.Equal(t, util.Repeats, ninEightyThree.Termination)
+	require.Equal(t, 982, len(ninEightyThree.FractionDigits))
 }
