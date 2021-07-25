@@ -4,6 +4,7 @@ import (
 	"math"
 	"math/bits"
 	"sort"
+	"sync"
 )
 
 type FactorList struct {
@@ -18,12 +19,16 @@ type FactorListU struct {
 
 func GetFactorsForAllNumbersBelowNUsingDivision(n int) []FactorList {
 	result := make([]FactorList, n)
+	var wg sync.WaitGroup
+	wg.Add(n)
 	for i := 1; i <= n; i++ {
 		go func(index int) {
 			result[index].N = index + 1
 			result[index].FactorsOfN = GetFactors(index + 1)
+			wg.Done()
 		}(i - 1)
 	}
+	wg.Wait()
 	return result
 }
 
@@ -36,7 +41,10 @@ func GetFactors(n int) []int {
 	for i := 2; i <= stop; i++ {
 		if n%i == 0 {
 			result = append(result, i)
-			result = append(result, n/i)
+			secondPart := n / i
+			if secondPart != i {
+				result = append(result, n/i)
+			}
 		}
 	}
 	sort.Ints(result)
