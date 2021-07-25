@@ -3,11 +3,11 @@ package main
 import (
 	"fmt"
 	"maw/util"
-	"strconv"
 )
 
 func fibAsString(n int) string {
-	return strconv.Itoa(util.Fib(n))
+	fib := util.FibBig(n)
+	fib.Text(10)
 }
 
 func digitsInFibN(n int) int {
@@ -16,5 +16,5 @@ func digitsInFibN(n int) int {
 
 func main() {
 
-	fmt.Println(digitsInFibN(100))
+	fmt.Println(digitsInFibN(200))
 }
