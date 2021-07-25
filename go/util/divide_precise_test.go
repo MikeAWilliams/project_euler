@@ -18,4 +18,6 @@ func requireEqualDivisionResult(t *testing.T, expected, recieved util.DivisionRe
 func TestDividePrecise(t *testing.T) {
 	tenth := util.Divide(1, 10)
 	requireEqualDivisionResult(t, util.DivisionResult{Whole: 0, FractionDigits: []uint8{1}, Termination: util.Terminates}, tenth)
+	five := util.Divide(10, 2)
+	requireEqualDivisionResult(t, util.DivisionResult{Whole: 5, FractionDigits: []uint8{}, Termination: util.Terminates}, five)
 }
