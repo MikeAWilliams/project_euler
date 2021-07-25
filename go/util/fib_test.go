@@ -16,9 +16,9 @@ func TestFib(t *testing.T) {
 }
 
 func TestFibBig(t *testing.T) {
-	//require.Equal(t, int64(1), util.FibBig(1).Int64())
-	//require.Equal(t, int64(1), util.FibBig(2).Int64())
-	//require.Equal(t, int64(2), util.FibBig(3).Int64())
+	require.Equal(t, int64(1), util.FibBig(1).Int64())
+	require.Equal(t, int64(1), util.FibBig(2).Int64())
+	require.Equal(t, int64(2), util.FibBig(3).Int64())
 	require.Equal(t, int64(5), util.FibBig(5).Int64())
-	//require.Equal(t, int64(144), util.FibBig(12).Int64())
+	require.Equal(t, int64(144), util.FibBig(12).Int64())
 }
