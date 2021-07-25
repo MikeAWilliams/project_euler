@@ -20,4 +20,13 @@ func TestDividePrecise(t *testing.T) {
 	requireEqualDivisionResult(t, util.DivisionResult{Whole: 0, FractionDigits: []uint8{1}, Termination: util.Terminates}, tenth)
 	five := util.Divide(10, 2)
 	requireEqualDivisionResult(t, util.DivisionResult{Whole: 5, FractionDigits: []uint8{}, Termination: util.Terminates}, five)
+	quarter := util.Divide(1, 4)
+	requireEqualDivisionResult(t, util.DivisionResult{Whole: 0, FractionDigits: []uint8{2, 5}, Termination: util.Terminates}, quarter)
+
+	third := util.Divide(1, 3)
+	requireEqualDivisionResult(t, util.DivisionResult{Whole: 0, FractionDigits: []uint8{3}, Termination: util.Repeats}, third)
+	sixth := util.Divide(1, 6)
+	requireEqualDivisionResult(t, util.DivisionResult{Whole: 0, FractionDigits: []uint8{1, 6}, Termination: util.Repeats}, sixth)
+	seventh := util.Divide(1, 7)
+	requireEqualDivisionResult(t, util.DivisionResult{Whole: 0, FractionDigits: []uint8{1, 4, 2, 8, 5, 7}, Termination: util.Repeats}, seventh)
 }
