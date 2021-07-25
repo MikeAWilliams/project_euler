@@ -54,6 +54,5 @@ func main() {
 	permutations := heapsAlgorithm(input)
 	stringPermulations := intSlicesToStringSlice(permutations)
 	sort.Strings(stringPermulations)
-	fmt.Println(stringPermulations[1000000])
-	fmt.Println(stringPermulations[1000001])
+	fmt.Println(stringPermulations[999999])
 }
