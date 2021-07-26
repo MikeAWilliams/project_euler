@@ -51,7 +51,7 @@ func GetFactors(n int) []int {
 	return result
 }
 
-func isPrime(target uint, startIndex uint, data []uint) bool {
+func IsPrime(target uint, startIndex uint, data []uint) bool {
 	stopIndex := uint(len(data) - 1)
 	for startIndex <= stopIndex {
 		index := (stopIndex + startIndex) / 2
@@ -82,7 +82,7 @@ func GetPrimeFactors(n uint, primesToN []uint) []uint {
 		if prime > n {
 			break
 		}
-		if changedN && isPrime(n, uint(primeIndex), primesToN) {
+		if changedN && IsPrime(n, uint(primeIndex), primesToN) {
 			result = append(result, n)
 			break
 		}
