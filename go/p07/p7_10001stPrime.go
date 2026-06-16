@@ -12,7 +12,7 @@ func findNthPrime(n int) int {
 		if flag {
 			count++
 			if count == n {
-				return index + 2
+				return index
 			}
 		}
 	}
@@ -22,5 +22,4 @@ func findNthPrime(n int) int {
 func main() {
 	result := findNthPrime(10001)
 	fmt.Printf("result %v\n", result)
-	fmt.Printf("delta %v", 104743-result)
 }

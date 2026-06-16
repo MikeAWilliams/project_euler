@@ -1,7 +1,7 @@
 ﻿static bool IsPalindrome(int num)
 {
     string strNum = num.ToString();
-    string revNum = new string(strNum.Reverse().ToArray());
+    string revNum = string.Concat(strNum.Reverse());
     return revNum == strNum;
 }
 
