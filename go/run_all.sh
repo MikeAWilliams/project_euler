@@ -3,5 +3,5 @@ set -euo pipefail
 
 for dir in p*/; do
     echo "=== ${dir%/} ==="
-    (cd "$dir" && go run .) && echo
+    go run "./$dir" && echo
 done

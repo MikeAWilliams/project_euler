@@ -11,7 +11,7 @@ Each problem lives in its own subdirectory (`p01/`, `p02/`, …) with a `util/` 
 Run a single problem:
 
 ```bash
-cd p01 && go run .
+go run ./p01/
 ```
 
 Run all problems:
@@ -20,4 +20,4 @@ Run all problems:
 ./run_all.sh
 ```
 
-> **Note:** Problems 13 and 22 read from data files (`p13_data.txt`, `p022_names.txt`). Place those files in their respective subdirectories before running.
+> **Note:** Problems 13 and 22 read from data files. Place them at `p13/p13_data.txt` and `p22/p022_names.txt` before running.
