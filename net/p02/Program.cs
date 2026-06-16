@@ -7,7 +7,20 @@ static bool IsEven(int n)
 
 static int SumEvenFib(int maxFib)
 {
-    return 0;
+    int result = 0;
+    int last = 1;
+    int current = 1;
+    while (current < maxFib)
+    {
+        if (IsEven(current))
+        {
+            result += current;
+        }
+        int tmp = last;
+        last = current;
+        current = tmp + last;
+    }
+    return result;
 }
 
 Console.WriteLine(SumEvenFib(4000000));
