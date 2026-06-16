@@ -10,16 +10,14 @@ Each problem has its own folder (e.g., `p01/`, `p02/`, etc.) with:
 
 ## Running a Solution
 
-From the root directory, run:
-
 ```bash
-dotnet run --project pXX
+make run 01
 ```
 
-For example, to run problem 1:
+## Creating a New Problem
 
 ```bash
-dotnet run --project p01
+make new 02
 ```
 
 ## Requirements

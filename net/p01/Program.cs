@@ -1,10 +1,5 @@
 ﻿using System;
 
-static void SayHello(string name)
-{
-    Console.WriteLine($"Hello, {name}!");
-}
-
 static bool IsDivisibleBy(int num, int den)
 {
     return num % den == 0;
