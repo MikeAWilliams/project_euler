@@ -16,7 +16,7 @@ func wordScore(word string) int {
 }
 
 func main() {
-	fileContentsRaw, err := ioutil.ReadFile("p22/p022_names.txt")
+	fileContentsRaw, err := ioutil.ReadFile("p22/names.txt")
 	if nil != err {
 		panic(err)
 	}
