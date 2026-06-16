@@ -6,6 +6,7 @@ import (
 	"log"
 	"maw/util"
 	"os"
+	"strconv"
 )
 
 func main() {
@@ -26,5 +27,10 @@ func main() {
 		data = append(data, thisLineData)
 	}
 	result := util.SumLargeInt(data)
-	fmt.Println(result)
+
+	answer := ""
+	for _, digit := range result[:10] {
+		answer += strconv.Itoa(digit)
+	}
+	fmt.Println(answer)
 }
