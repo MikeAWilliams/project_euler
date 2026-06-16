@@ -1,0 +1,32 @@
+# Build results
+bin/
+obj/
+out/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio cache/options
+.vs/
+
+# NuGet
+packages/
+.nuget/
+
+# Build output
+*.exe
+*.dll
+*.pdb
+
+# IDE
+.idea/
+.vscode/
+
+# Runtime files
+*.runtimeconfig.json
+
+# Text files
+*.txt
