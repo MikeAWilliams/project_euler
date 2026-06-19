@@ -48,6 +48,8 @@ for (int rowSize = 3; rowSize <= size; rowSize += 2)
         }
     }
     PrintGrid(digits, size);
+    x++;
+    y--;
 }
 
 PrintGrid(digits, size);
