@@ -52,7 +52,7 @@ for (int rowSize = 3; rowSize <= size; rowSize += 2)
 
 PrintGrid(digits, size);
 
-void PrintGrid(int[,] grid, int n)
+static void PrintGrid(int[,] grid, int n)
 {
     for (int j = 0; j < n; j++)
     {
