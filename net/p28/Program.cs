@@ -1,17 +1,15 @@
-﻿const int size = 5;
+﻿const int size = 1001;
 var digits = new int[size, size];
-digits[2, 2] = 1;
+digits[size / 2, size / 2] = 1;
 int value = 2;
-int x = 3;
-int y = 2;
+int x = size / 2 + 1;
+int y = size / 2;
 var dir = Direction.Up;
 for (int rowSize = 3; rowSize <= size; rowSize += 2)
 {
     var steps = rowSize + 2 * (rowSize - 1) + rowSize - 2;
-    Console.WriteLine(steps);
     for (int step = 0; step < steps; step++)
     {
-        Console.WriteLine($"{x},{y}={value}, dir={dir}");
         digits[y, x] = value;
         value += 1;
         switch (dir)
@@ -50,20 +48,36 @@ for (int rowSize = 3; rowSize <= size; rowSize += 2)
             dir = Direction.Up;
         }
     }
-    PrintGrid(digits, size);
     x++;
     y--;
 }
 
-PrintGrid(digits, size);
+//PrintGrid(digits, size);
+ulong sum = 0;
+// diag 1
+for (int i = 0; i < size; i++)
+{
+    // first diagonal
+    sum += (uint)digits[i, i];
+
+    // second diagonal
+    if (size - i - 1 != i)
+    {
+        sum += (uint)digits[size - i - 1, i];
+    }
+}
+Console.WriteLine(sum);
 
 static void PrintGrid(int[,] grid, int n)
 {
+    // widest value is n*n; pad every cell to that width plus a separating space
+    int width = (n * n).ToString().Length;
     for (int j = 0; j < n; j++)
     {
         for (int i = 0; i < n; i++)
         {
-            Console.Write(grid[j, i]);
+            Console.Write(grid[j, i].ToString().PadLeft(width));
+            Console.Write(' ');
         }
         Console.Write("\n");
     }
