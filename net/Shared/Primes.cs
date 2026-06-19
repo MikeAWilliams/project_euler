@@ -1,3 +1,5 @@
+using System.Data;
+
 namespace Shared;
 
 // Sieve of Eratosthenes
@@ -23,6 +25,31 @@ public class Sieve
             throw new IndexOutOfRangeException();
         }
         return _flags[num];
+    }
+
+    public int GetNthPrime(int n)
+    {
+        if (n < 1)
+        {
+            throw new InvalidOperationException();
+        }
+        if (n == 1)
+        {
+            return 2;
+        }
+        int primeCounter = 1;
+        for (int i = 3; i < _size; i += 2)
+        {
+            if (_flags[i])
+            {
+                primeCounter++;
+                if (primeCounter == n)
+                {
+                    return i;
+                }
+            }
+        }
+        throw new InvalidExpressionException();
     }
 
     private void InitFlags()

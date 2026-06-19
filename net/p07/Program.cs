@@ -1,6 +1,4 @@
-﻿Shared.Sieve sieve = new Shared.Sieve(100);
+﻿Shared.Sieve sieve = new Shared.Sieve(1000000);
 
-for (int i = 0; i < 30; i++)
-{
-    Console.WriteLine($"{i} is prime {sieve.IsPrime(i)}");
-}
+int i = 10001;
+Console.WriteLine($"{i}th prime is {sieve.GetNthPrime(i)}");
