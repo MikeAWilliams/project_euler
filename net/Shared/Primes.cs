@@ -42,12 +42,13 @@ public class Sieve
         while (candidate * candidate < _count)
         {
             // starting with 9 (3*3) because evens already false, odds before 9 are prime
-            // advance by candidate*2
+            // advance by candidate*2 to skip even multiples of candidate (already false)
             for (int notPrime = candidate * candidate; notPrime < _count; notPrime += candidate * 2)
             {
                 _flags[notPrime] = false;
             }
             // find the next candidate
+            // next item not already crossed out
             for (candidate += 2; !_flags[candidate]; candidate += 2) { }
         }
     }
