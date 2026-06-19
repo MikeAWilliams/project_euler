@@ -29,20 +29,23 @@ for (int rowSize = 3; rowSize <= size; rowSize += 2)
                 y++;
                 break;
         }
-        // rowSize - 2 reflects that 2 is the middle of this grid needs adjustment
-        if (x == rowSize && y == rowSize)
+        // ring corners, measured from the grid center
+        int radius = rowSize / 2;
+        int low = size / 2 - radius;
+        int high = size / 2 + radius;
+        if (x == high && y == high)
         {
             dir = Direction.Left;
         }
-        else if (x == rowSize - 2 && y == rowSize)
+        else if (x == low && y == high)
         {
             dir = Direction.Down;
         }
-        else if (x == rowSize - 2 && y == rowSize - 2)
+        else if (x == low && y == low)
         {
             dir = Direction.Right;
         }
-        else if (x == rowSize && y == rowSize - 2)
+        else if (x == high && y == low)
         {
             dir = Direction.Up;
         }
