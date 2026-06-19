@@ -20,15 +20,15 @@
     "05886116467109405077541002256983155200055935729725" +
     "71636269561882670428252483600823257530420752963450";
 
-const int consecutive = 4;
+const int consecutive = 13;
 int maxStartIndex = 0;
-int max = 0;
-for (int i = 0; i < data.Length - consecutive; i++)
+ulong max = 0;
+for (int i = 0; i <= data.Length - consecutive; i++)
 {
-    int product = 1;
+    ulong product = 1;
     for (int j = 0; j < consecutive; j++)
     {
-        product *= (int)char.GetNumericValue(data[i]);
+        product *= (uint)char.GetNumericValue(data[i + j]);
     }
     if (product > max)
     {
@@ -36,10 +36,9 @@ for (int i = 0; i < data.Length - consecutive; i++)
         max = product;
     }
 }
-Console.WriteLine(maxStartIndex);
 for (int j = 0; j < consecutive; j++)
 {
-    Console.Write($"{(int)char.GetNumericValue(data[maxStartIndex + j])}x");
+    Console.Write($"{(uint)char.GetNumericValue(data[maxStartIndex + j])}x");
 }
 Console.WriteLine();
 Console.WriteLine(max);
