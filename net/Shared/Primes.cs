@@ -1,16 +1,14 @@
-using System.Data;
-
 namespace Shared;
 
 // Sieve of Eratosthenes
 public class Sieve
 {
-
     // if _flags[i] is true then i is prime
     private readonly bool[] _flags;
     private readonly int _size;
     public Sieve(int size)
     {
+        ArgumentOutOfRangeException.ThrowIfLessThan(size, 2);
         _size = size;
         // defaults false
         _flags = new bool[size];
@@ -20,23 +18,15 @@ public class Sieve
 
     public bool IsPrime(int num)
     {
-        if (num < 0 || num >= _size)
-        {
-            throw new IndexOutOfRangeException();
-        }
+        ArgumentOutOfRangeException.ThrowIfNegative(num);
+        ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(num, _size);
         return _flags[num];
     }
 
     public int GetNthPrime(int n)
     {
-        if (n < 1)
-        {
-            throw new InvalidOperationException();
-        }
-        if (n == 1)
-        {
-            return 2;
-        }
+        ArgumentOutOfRangeException.ThrowIfLessThan(n, 1);
+        if (n == 1) return 2;
         int primeCounter = 1;
         for (int i = 3; i < _size; i += 2)
         {
@@ -49,7 +39,7 @@ public class Sieve
                 }
             }
         }
-        throw new InvalidExpressionException();
+        throw new ArgumentOutOfRangeException(nameof(n), $"Sieve of size {_size} does not contain {n} primes.");
     }
 
     private void InitFlags()

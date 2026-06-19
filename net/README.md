@@ -30,6 +30,14 @@ make new 02 shared  # new console project that references the shared library
 make link 02
 ```
 
+## Running Tests
+
+Tests for the shared library live in `Shared.Tests/` (xUnit).
+
+```bash
+make test
+```
+
 ## Requirements
 
 - .NET 10.0 or compatible version
