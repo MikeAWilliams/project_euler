@@ -1,9 +1,13 @@
+# initial time 13.7s
+# change get_next to use % and / 7.97
+
+
 def get_next(n):
-    n_str = str(n)
     sum = 0
-    for d in n_str:
-        d_int = int(d)
-        sum += d_int * d_int
+    while n > 0:
+        d = n % 10
+        sum += d * d
+        n = n // 10
     return sum
 
 
@@ -19,3 +23,5 @@ for i in range(1, 10000000):
     if ends89(i):
         count += 1
 print(count)
+if count != 8581146:
+    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
