@@ -1,3 +1,5 @@
+// fun fact this takes 0.29 s in go
+// in python it takes 7.97
 package main
 
 import "fmt"
