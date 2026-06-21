@@ -1,5 +1,14 @@
 import csv
 import string
+from bisect import bisect_left
+
+
+def binary_search(sorted_list, target):
+    index = bisect_left(sorted_list, target)
+
+    if index < len(sorted_list) and sorted_list[index] == target:
+        return index
+    return -1
 
 
 def get_data():
@@ -45,10 +54,12 @@ def get_triange_numbers(max):
 words = get_data()
 letter_score = get_letter_score()
 triangles = get_triange_numbers(192)
-print(triangles)
 
-max = 0
+
+count = 0
 for w in words:
     s = get_word_score(letter_score, w)
-    if s > max:
-        max = s
+    index = binary_search(triangles, s)
+    if index >= 0:
+        count += 1
+print(count)
