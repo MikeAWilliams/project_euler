@@ -19,19 +19,13 @@ def get_data():
     return words
 
 
-def get_letter_score():
-    letter_score = {}
-    score = 1
-    for letter in string.ascii_uppercase:
-        letter_score[letter] = score
-        score += 1
-    return letter_score
+AVALUE = ord("A") - 1
 
 
-def get_word_score(letter_score, word):
+def get_word_score(word):
     total = 0
     for l in word:
-        total += letter_score[l]
+        total += ord(l) - AVALUE
     return total
 
 
@@ -52,13 +46,12 @@ def get_triange_numbers(max):
 
 
 words = get_data()
-letter_score = get_letter_score()
 triangles = get_triange_numbers(192)
 
 
 count = 0
 for w in words:
-    s = get_word_score(letter_score, w)
+    s = get_word_score(w)
     index = binary_search(triangles, s)
     if index >= 0:
         count += 1
