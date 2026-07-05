@@ -1,7 +1,5 @@
 import math
 
-from more_itertools.recipes import unique
-
 
 def get_digits(n):
     result = []
