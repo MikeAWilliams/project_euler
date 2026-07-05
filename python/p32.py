@@ -24,7 +24,8 @@ def has_duplicates(digit_list):
     return len(unique_set) != len(digit_list)
 
 def get_num_digits(num):
-    return int(math.log(num,10))+1
+    #return int(math.log(num,10))+1
+    return len(str(num))
 
 def is_pandigital(num, required_digits):
     real_digits = get_num_digits(num)
