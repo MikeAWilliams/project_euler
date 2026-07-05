@@ -90,3 +90,4 @@ for a in range(1,10000):
        if get_num_digits(p) + get_num_digits(a) + get_num_digits(b) > 9:
             break
 print(result)
+# was 34# to square after entering this solution
