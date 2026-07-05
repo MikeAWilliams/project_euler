@@ -55,41 +55,38 @@ def product_and_args_are_pandigital9(a, b, product):
     smoosh = padded_product + padded_a + b
     return(is_pandigital(smoosh, 9))
 
-num = 100*100
-print("ditit count check", num, get_num_digits(num))
-
 def explore_digit_space():
     all_a = set()
     all_b = set()
     for a in range(1, 100000000):
         if a % 100 == 0:
             print(a)
-            for b in range(1, 100000000):
-                p = a * b
-                digits_a = get_num_digits(a)
-                digits_b = get_num_digits(b)
-                digits_p = get_num_digits(p)
-                sum = digits_a + digits_b + digits_p
-                if sum == 9:
-                    all_a.add(a)
-                    all_b.add(b)
-                    #print(f"a:{a}, b:{b}, p:{p}, da:{digits_a}, db:{digits_b}, dp:{digits_p}")
-                if sum > 9:
-                    break
+        for b in range(1, 100000000):
+            p = a * b
+            digits_a = get_num_digits(a)
+            digits_b = get_num_digits(b)
+            digits_p = get_num_digits(p)
+            sum = digits_a + digits_b + digits_p
+            if sum == 9:
+                all_a.add(a)
+                all_b.add(b)
+                #print(f"a:{a}, b:{b}, p:{p}, da:{digits_a}, db:{digits_b}, dp:{digits_p}")
+            if sum > 9:
+                break
     print("min a", min(all_a), "max a", max(all_a))
-    print("min b", min(all_b), "max a", max(all_b))
+    print("min b", min(all_b), "max b", max(all_b))
+#print("explore the digits space")
+#explore_digit_space()
+result = 0
+products = set()
 
-print("explore the digits space")
-explore_digit_space()
-
-print("solving")
-count = 0
-for a in range(1, 10000):
-    print(a, count)
-    for b in range(1, 10000):
-        product = a * b
-        if product_and_args_are_pandigital9(a, b, product):
-            count += 1
-        if get_num_digits(a) + get_num_digits(b) + get_num_digits(product) > 9:
+for a in range(1,10000):
+   for b in range(1,10000):
+       p = a*b
+       if product_and_args_are_pandigital9(a,b,p):
+           if p not in products:
+               result += p
+               products.add(p)
+       if get_num_digits(p) + get_num_digits(a) + get_num_digits(b) > 9:
             break
-print(count)
+print(result)
