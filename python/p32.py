@@ -1,0 +1,69 @@
+import math
+
+from more_itertools.recipes import unique
+
+
+def get_digits(n):
+    result = []
+    while n > 0:
+        digit = n % 10
+        result.append(digit)
+        n = n // 10
+    return result
+
+def has_zeros(digit_list):
+    for a in digit_list:
+        if a == 0:
+            return True
+    return False
+
+def has_duplicates(digit_list):
+    unique_set = set()
+    for d in digit_list:
+        unique_set.add(d)
+    return len(unique_set) != len(digit_list)
+
+def get_num_digits(num):
+    return int(math.log(num,10))+1
+
+def is_pandigital(num, required_digits):
+    real_digits = get_num_digits(num)
+    if real_digits != required_digits:
+        return False
+
+    digits = get_digits(num)
+    if len(digits) != real_digits:
+        raise Exception(f"digits didn't work, num {num}, digits {digits}")
+
+    if has_zeros(digits):
+        return False
+    if has_duplicates(digits):
+        return False
+    return True
+
+def pad_number_to_digits(num, required_digits):
+    result = num
+    for i in range(required_digits):
+        result = result * 10
+    return result
+
+def product_and_args_are_pandigital9(a, b, product):
+    if a <= 0 or b <= 0 or product <= 0:
+        return False
+    padded_product = pad_number_to_digits(product, get_num_digits(a) + get_num_digits(b))
+    padded_a = pad_number_to_digits(a, get_num_digits(b))
+
+    smoosh = padded_product + padded_a + b
+    return(is_pandigital(smoosh, 9))
+
+num = 100*100
+print(num, get_num_digits(num))
+
+count = 0
+for a in range(1, 1000000):
+    print(a, count)
+    for b in range(1, 1000000):
+        product = a * b
+        if product_and_args_are_pandigital9(a, b, product):
+            count += 1
+print(count)
