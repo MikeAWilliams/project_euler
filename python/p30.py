@@ -9,6 +9,9 @@ def get_digits(n):
         n = n // 10
     return result
 
+# use the very lazy tactic of just making the loop maximum bigger and checking if the answer changed.
+# then because 10000000 takes a very long time to run, just enter the number we have for that and see if its the right one
+# turns out it is.
 result = 0
 for num in range(1000, 10000000):
     digits = get_digits(num)
