@@ -18,10 +18,10 @@ def test_number(number, factorial_cache):
         result += factorial_cache[d]
     return result == number
 
-count = 0
+sum = 0
 factorial_cache = precompute_digit_factorial()
-for number in range(100000000):
+for number in range(10000000):
     if test_number(number, factorial_cache):
         print(number)
-        count += 1
-print(count)
+        sum+=number
+print(sum)
