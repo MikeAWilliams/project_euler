@@ -96,7 +96,12 @@ class SieveOfEratosthenes:
             return [candidate]
         result = []
         for index in range(len(primes)):
+            if primes[index] * primes[index] > candidate:
+                break
             while candidate % primes[index] == 0:
                 result.append(primes[index])
                 candidate = candidate // primes[index]
+        # anything left over is a single prime factor larger than sqrt
+        if candidate > 1:
+            result.append(candidate)
         return result

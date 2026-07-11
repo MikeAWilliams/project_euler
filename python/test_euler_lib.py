@@ -111,3 +111,60 @@ def test_get_primes_in_sieve_matches_is_prime():
     assert sieve.get_primes_in_sieve() == [
         n for n in range(100) if sieve.is_prime(n)
     ]
+
+
+def test_get_prime_factors_prime():
+    sieve = SieveOfEratosthenes(1000)
+    primes = sieve.get_primes_in_sieve()
+    assert sieve.get_prime_factors(13, primes) == [13]
+
+
+def test_get_prime_factors_prime_power():
+    sieve = SieveOfEratosthenes(1000)
+    primes = sieve.get_primes_in_sieve()
+    assert sieve.get_prime_factors(8, primes) == [2, 2, 2]
+
+
+def test_get_prime_factors_composite():
+    sieve = SieveOfEratosthenes(1000)
+    primes = sieve.get_primes_in_sieve()
+    assert sieve.get_prime_factors(12, primes) == [2, 2, 3]
+
+
+def test_get_prime_factors_distinct():
+    sieve = SieveOfEratosthenes(1000)
+    primes = sieve.get_primes_in_sieve()
+    assert sieve.get_prime_factors(30, primes) == [2, 3, 5]
+
+
+def test_get_prime_factors_large_prime_factor():
+    # 998 = 2 * 499; 499 is only reached via the sqrt leftover
+    sieve = SieveOfEratosthenes(1000)
+    primes = sieve.get_primes_in_sieve()
+    assert sieve.get_prime_factors(998, primes) == [2, 499]
+
+
+def test_get_prime_factors_repeated_and_mixed():
+    # 360 = 2^3 * 3^2 * 5
+    sieve = SieveOfEratosthenes(1000)
+    primes = sieve.get_primes_in_sieve()
+    assert sieve.get_prime_factors(360, primes) == [2, 2, 2, 3, 3, 5]
+
+
+def test_get_prime_factors_sorted():
+    sieve = SieveOfEratosthenes(1000)
+    primes = sieve.get_primes_in_sieve()
+    factors = sieve.get_prime_factors(924, primes)
+    assert factors == sorted(factors)
+
+
+def test_get_prime_factors_product_reconstructs():
+    sieve = SieveOfEratosthenes(1000)
+    primes = sieve.get_primes_in_sieve()
+    for n in range(2, 1000):
+        factors = sieve.get_prime_factors(n, primes)
+        product = 1
+        for f in factors:
+            product *= f
+        assert product == n
+        assert all(sieve.is_prime(f) for f in factors)
