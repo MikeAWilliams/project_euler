@@ -1,4 +1,4 @@
-from euler_lib import SieveOfEratosthenes, get_digits, get_factors
+from euler_lib import SieveOfEratosthenes, get_digits, get_factors, from_digits
 
 
 def test_get_digits_single():
@@ -19,6 +19,28 @@ def test_get_digits_large():
 
 def test_get_digits_zero():
     assert get_digits(0) == []
+
+
+def test_from_digits_single():
+    assert from_digits([5]) == 5
+
+
+def test_from_digits_multi():
+    assert from_digits([1, 2, 3]) == 123
+
+
+def test_from_digits_leading_zero():
+    assert from_digits([0, 4, 2]) == 42
+
+
+def test_from_digits_empty():
+    assert from_digits([]) == 0
+
+
+def test_from_digits_round_trip():
+    digits = get_digits(9876)
+    digits.reverse()
+    assert from_digits(digits) == 9876
 
 
 def test_get_factors_one():

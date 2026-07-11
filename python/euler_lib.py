@@ -25,6 +25,13 @@ def get_digits(n):
         n = n // 10
     return result
 
+
+def from_digits(digits):
+    result = 0
+    for digit in digits:
+        result = result * 10 + digit
+    return result
+
 class SieveOfEratosthenes:
     def __init__(self, size):
         if size <= 2:

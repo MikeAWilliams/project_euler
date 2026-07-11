@@ -1,4 +1,4 @@
-from euler_lib import SieveOfEratosthenes, get_digits
+from euler_lib import SieveOfEratosthenes, get_digits, from_digits
 
 
 def get_new_rotations(number):
@@ -11,10 +11,7 @@ def get_new_rotations(number):
         zero_item = digits[0]
         digits = digits[1:]
         digits.append(zero_item)
-        new_num = 0
-        for index in range(len(digits)):
-            new_num += digits[index] * pow(10, len(digits) - index -  1)
-        result.append(new_num)
+        result.append(from_digits(digits))
     return result
 
 size = 1000000
