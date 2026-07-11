@@ -1,9 +1,20 @@
 
 from euler_lib import SieveOfEratosthenes
 
-size_size = 10000
+sieve_size = 1000000
+consecutive_target = 4
 
-sieve = SieveOfEratosthenes(size_size)
+sieve = SieveOfEratosthenes(sieve_size)
 primes = sieve.get_primes_in_sieve()
 
-print(sieve.get_prime_factors(644, primes))
+results = []
+for candidate in range(1, sieve_size):
+    factors = sieve.get_prime_factors(candidate, primes)
+    distince_factor = set(factors)
+    if len(distince_factor) == consecutive_target:
+        results.append(candidate)
+        if len(results) == consecutive_target:
+            break
+    else:
+        results = []
+print(results)
