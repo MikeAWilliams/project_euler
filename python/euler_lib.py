@@ -83,3 +83,10 @@ class SieveOfEratosthenes:
                 if counter == n:
                     return index
         raise Exception(f"Sieve of size {self.size} does not conatin {n} primes")
+
+    def get_primes_in_sieve(self):
+        result = [2]
+        for candidate in range(3, self.size, 2):
+            if self.flags[candidate]:
+                result.append(candidate)
+        return result

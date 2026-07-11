@@ -92,3 +92,22 @@ def test_sieve_nth_prime_first():
 def test_sieve_nth_prime():
     sieve = SieveOfEratosthenes(30)
     assert sieve.get_nth_prime(6) == 13
+
+
+def test_get_primes_in_sieve_under_30():
+    sieve = SieveOfEratosthenes(30)
+    assert sieve.get_primes_in_sieve() == [
+        2, 3, 5, 7, 11, 13, 17, 19, 23, 29
+    ]
+
+
+def test_get_primes_in_sieve_small():
+    sieve = SieveOfEratosthenes(3)
+    assert sieve.get_primes_in_sieve() == [2]
+
+
+def test_get_primes_in_sieve_matches_is_prime():
+    sieve = SieveOfEratosthenes(100)
+    assert sieve.get_primes_in_sieve() == [
+        n for n in range(100) if sieve.is_prime(n)
+    ]
