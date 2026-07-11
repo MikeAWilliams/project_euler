@@ -53,7 +53,8 @@ class SieveOfEratosthenes:
             while not_prime < self.size:
                 self.flags[not_prime] = False
                 not_prime += advance
-            # skip ahead to the next candidate that is not already false
+            # skip ahead to the next candidate that is still flagged prime
+            candidate += 2
             while candidate < self.size and not self.flags[candidate]:
                 candidate += 2
 

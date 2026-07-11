@@ -1,4 +1,4 @@
-from euler_lib import get_digits, get_factors
+from euler_lib import SieveOfEratosthenes, get_digits, get_factors
 
 
 def test_get_digits_single():
@@ -38,3 +38,35 @@ def test_get_factors_28():
 
 def test_get_factors_500():
     assert get_factors(500) == [1, 2, 4, 5, 10, 20, 25, 50, 100, 125, 250, 500]
+
+
+def test_sieve_primes_under_30():
+    sieve = SieveOfEratosthenes(30)
+    assert [n for n in range(30) if sieve.is_prime(n)] == [
+        2, 3, 5, 7, 11, 13, 17, 19, 23, 29
+    ]
+
+
+def test_sieve_is_prime_true():
+    sieve = SieveOfEratosthenes(30)
+    assert sieve.is_prime(13)
+
+
+def test_sieve_is_prime_false():
+    sieve = SieveOfEratosthenes(30)
+    assert not sieve.is_prime(9)
+
+
+def test_sieve_one_is_not_prime():
+    sieve = SieveOfEratosthenes(30)
+    assert not sieve.is_prime(1)
+
+
+def test_sieve_nth_prime_first():
+    sieve = SieveOfEratosthenes(30)
+    assert sieve.get_nth_prime(1) == 2
+
+
+def test_sieve_nth_prime():
+    sieve = SieveOfEratosthenes(30)
+    assert sieve.get_nth_prime(6) == 13
