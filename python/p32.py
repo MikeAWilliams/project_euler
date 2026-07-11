@@ -1,13 +1,6 @@
 import math
 
-
-def get_digits(n):
-    result = []
-    while n > 0:
-        digit = n % 10
-        result.append(digit)
-        n = n // 10
-    return result
+from euler_lib import get_digits
 
 def has_zeros(digit_list):
     for a in digit_list:

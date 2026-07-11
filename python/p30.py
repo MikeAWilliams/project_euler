@@ -1,13 +1,6 @@
 import math
 
-
-def get_digits(n):
-    result = []
-    while n > 0:
-        digit = n % 10
-        result.append(digit)
-        n = n // 10
-    return result
+from euler_lib import get_digits
 
 # use the very lazy tactic of just making the loop maximum bigger and checking if the answer changed.
 # then because 10000000 takes a very long time to run, just enter the number we have for that and see if its the right one
