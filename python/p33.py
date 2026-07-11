@@ -11,21 +11,19 @@ for num in range(10, 100):
         real_divide = num/den
         num_digits = get_digits(num)
         den_digits = get_digits(den)
-        if num == den or den_digits[0] == 0:
+        if den_digits[0] == 0:
             continue
 
         # this is the only case that resulted in matches.
         if num_digits[0] == den_digits[1]:
             fake_divide = num_digits[1] / den_digits[0]
             if fake_divide == real_divide:
-                print("case 3", num, den)
+                print(num, den)
                 result_num *= num
                 result_den *= den
 
-print(result_num, result_den)
+print("raw result", result_num, result_den)
 factor = gcd(result_num, result_den)
-while factor != 1:
-    result_num = result_num // factor
-    result_den = result_den // factor
-    factor = gcd(result_num, result_den)
-print(result_num, result_den)
+result_num = result_num // factor
+result_den = result_den // factor
+print("reduced result", result_num, result_den)
