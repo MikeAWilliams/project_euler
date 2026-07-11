@@ -19,5 +19,9 @@ while len(coins) > 0:
         if current_value == 200:
             results.append(starter)
             continue
+        this_solution = [starter]
+        for coin_index in range(len(coins)):
+
+
 print("results", results)
 print("answer for Euler", len(results))
