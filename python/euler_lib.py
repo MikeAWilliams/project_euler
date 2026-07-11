@@ -90,3 +90,13 @@ class SieveOfEratosthenes:
             if self.flags[candidate]:
                 result.append(candidate)
         return result
+
+    def get_prime_factors(self, candidate, primes):
+        if self.is_prime(candidate):
+            return [candidate]
+        result = []
+        for index in range(len(primes)):
+            while candidate % primes[index] == 0:
+                result.append(primes[index])
+                candidate = candidate // primes[index]
+        return result
