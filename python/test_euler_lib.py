@@ -1,4 +1,4 @@
-from euler_lib import get_digits
+from euler_lib import get_digits, get_factors
 
 
 def test_get_digits_single():
@@ -19,3 +19,22 @@ def test_get_digits_large():
 
 def test_get_digits_zero():
     assert get_digits(0) == []
+
+
+def test_get_factors_one():
+    assert get_factors(1) == [1]
+
+def test_get_factors_prime():
+    assert get_factors(3) == [1, 3]
+
+def test_get_factors_perfect_square():
+    assert get_factors(9) == [1, 3, 9]
+
+def test_get_factors_composite():
+    assert get_factors(6) == [1, 2, 3, 6]
+
+def test_get_factors_28():
+    assert get_factors(28) == [1, 2, 4, 7, 14, 28]
+
+def test_get_factors_500():
+    assert get_factors(500) == [1, 2, 4, 5, 10, 20, 25, 50, 100, 125, 250, 500]
