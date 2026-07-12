@@ -13,7 +13,7 @@ families = []
 for p in primes:
     digits = get_digits(p)
     digits.reverse()
-    # replace between 1 and all the digits
+    # replace between 1 and all but one of the digits
     for number_to_replace in range(1, len(digits)):
         # compute all the indicies to replace for this number of replacements
         for replace_set in itertools.combinations(range(len(digits)), number_to_replace):
