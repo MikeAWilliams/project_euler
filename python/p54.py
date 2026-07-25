@@ -1,5 +1,12 @@
-from dataclasses import dataclass
 from enum import Enum
+
+
+def read_hands():
+    with open("0054_poker.txt") as f:
+        return [line.strip() for line in f]
+
+
+promblem_hands = read_hands()
 
 demo_hands = [
     "5H 5C 6S 7S KD 2C 3S 8S 8D TD",
@@ -16,6 +23,15 @@ class Suit(Enum):
     SPADES = 3
     CLUBS = 4
 
+    @property
+    def symbol(self):
+        return {
+            Suit.DIAMONDS: "D",
+            Suit.HEARTS: "H",
+            Suit.SPADES: "S",
+            Suit.CLUBS: "C",
+        }[self]
+
 
 class Value(Enum):
     TWO = 2
@@ -31,6 +47,25 @@ class Value(Enum):
     QUEEN = 12
     KING = 13
     ACE = 14
+
+    @property
+    def symbol(self):
+        return {10: "T", 11: "J", 12: "Q", 13: "K", 14: "A"}.get(
+            self.value, str(self.value)
+        )
+
+
+class HandRank(Enum):
+    HIGH_CARD = 1
+    ONE_PAIR = 2
+    TWO_PAIRS = 3
+    THREE_OF_A_KIND = 4
+    STRAIGHT = 5
+    FLUSH = 6
+    FULL_HOUSE = 7
+    FOUR_OF_A_KIND = 8
+    STRAIGHT_FLUSH = 9
+    ROYAL_FLUSH = 10
 
 
 class Card:
@@ -79,21 +114,33 @@ class Card:
             case _:
                 raise Exception(f"Invalid suit {letters[1]}")
 
+    def __repr__(self):
+        return f"{self.val.symbol}{self.suit.symbol}"
+
 
 def string_to_hands(string):
     cards = string.split()
     if len(cards) != 10:
         raise Exception("It should always be 10")
-    index = 0
     p1 = []
     p2 = []
-    for c in cards:
+    for index, c in enumerate(cards):
         if index < 5:
             p1.append(Card(c))
         else:
             p2.append(Card(c))
-        index += 1
     return p1, p2
 
 
-print(string_to_hands(demo_hands[0]))
+def rank_hand(hand):
+    hand.sort(key=lambda c: c.val)
+    return HandRank.FLUSH
+
+
+working_hands = demo_hands
+
+for l in working_hands:
+    h1, h2 = string_to_hands(l)
+    h1_rank = rank_hand(h1)
+    h2_rank = rank_hand(h2)
+    print(h1, h1_rank, h2, h2_rank)
