@@ -1,4 +1,4 @@
-from enum import Enum
+from enum import Enum, IntEnum
 
 
 def read_hands():
@@ -33,7 +33,7 @@ class Suit(Enum):
         }[self]
 
 
-class Value(Enum):
+class Value(IntEnum):
     TWO = 2
     THREE = 3
     FOUR = 4
