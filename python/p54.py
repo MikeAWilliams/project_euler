@@ -256,14 +256,14 @@ def sort_values_for_rank(rank, hand):
             raise Exception("what happened")
 
 
-working_hands = demo_hands
+# working_hands = demo_hands
 # working_hands = mike_hands
 # working_hands = strait_not
 # working_hands = promblem_hands[0:5]
+working_hands = promblem_hands
 
 p1_wins = 0
 for l in working_hands:
-    print(l)
     h1, h2 = string_to_hands(l)
     h1_rank = rank_hand(h1)
     h2_rank = rank_hand(h2)
