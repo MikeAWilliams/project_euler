@@ -1,4 +1,5 @@
 from enum import Enum, IntEnum
+from shutil import ExecError
 
 
 def read_hands():
@@ -196,27 +197,64 @@ def rank_hand(hand):
         return HandRank.ONE_PAIR
     return HandRank.HIGH_CARD
 
+
 def sort_values_for_rank(rank, hand):
     # assum hand is sorted
     vals = [c.val for c in hand]
-    match(rank):
+    match rank:
         # get all the hands where the highest card just wins
-        case HandRank.HIGH_CARD:
-           return vals[::-1]
-        case HandRank.ROYAL_FLUSH:
-           return vals[::-1]
-        case HandRank.STRAIGHT:
-           return vals[::-1]
-        case HandRank.FLUSH:
-           return vals[::-1]
-        case HandRank.STRAIGHT_FLUSH:
-           return vals[::-1]
+        case (
+            HandRank.HIGH_CARD
+            | HandRank.ROYAL_FLUSH
+            | HandRank.STRAIGHT
+            | HandRank.FLUSH
+            | HandRank.STRAIGHT_FLUSH
+        ):
+            return vals[::-1]
         # now we have to deal with all the hands that use card counts
         case HandRank.ONE_PAIR:
+            pairs = []
+            kickers = []
+            for v in vals:
+                if vals.count(v) == 2:
+                    pairs.append(v)
+                else:
+                    kickers.append(v)
+            kickers.sort()
+            return pairs + kickers
         case HandRank.TWO_PAIRS:
-        case HandRank.THREE_OF_A_KIND:
-        case HandRank.FULL_HOUSE:
+            pairs = []
+            kickers = []
+            for v in vals:
+                if vals.count(v) == 2:
+                    pairs.append(v)
+                else:
+                    kickers.append(v)
+            pairs.sort(reverse=True)
+            kickers.sort()
+            return pairs + kickers
+        case HandRank.THREE_OF_A_KIND | HandRank.FULL_HOUSE:
+            threes = []
+            kickers = []
+            for v in vals:
+                if vals.count(v) == 3:
+                    threes.append(v)
+                else:
+                    kickers.append(v)
+            kickers.sort()
+            return threes + kickers
         case HandRank.FOUR_OF_A_KIND:
+            fours = []
+            kickers = []
+            for v in vals:
+                if vals.count(v) == 4:
+                    fours.append(v)
+                else:
+                    kickers.append(v)
+            return fours + kickers
+        case _:
+            raise Exception("what happened")
+
 
 working_hands = demo_hands
 # working_hands = mike_hands
