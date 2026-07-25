@@ -32,6 +32,16 @@ def from_digits(digits):
         result = result * 10 + digit
     return result
 
+
+def is_decimal_palindrome(num):
+    digits = get_digits(num)
+    if len(digits) == 1:
+        return True
+    for index in range(len(digits) // 2):
+        if digits[index] != digits[len(digits)-index-1]:
+            return False
+    return True
+
 class SieveOfEratosthenes:
     def __init__(self, size):
         if size <= 2:

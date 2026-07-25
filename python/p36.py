@@ -1,4 +1,4 @@
-from euler_lib import get_digits
+from euler_lib import is_decimal_palindrome
 
 
 def is_binary_palindrome(decimal_num):
@@ -11,15 +11,6 @@ def is_binary_palindrome(decimal_num):
             return False
     return True
 
-
-def is_decimal_palindrome(num):
-    digits = get_digits(num)
-    if len(digits) == 1:
-        return True
-    for index in range(len(digits) // 2):
-        if digits[index] != digits[len(digits)-index-1]:
-            return False
-    return True
 
 def is_double_palindrome(num):
     return is_decimal_palindrome(num) and is_binary_palindrome(num)

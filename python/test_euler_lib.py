@@ -1,4 +1,10 @@
-from euler_lib import SieveOfEratosthenes, get_digits, get_factors, from_digits
+from euler_lib import (
+    SieveOfEratosthenes,
+    get_digits,
+    get_factors,
+    from_digits,
+    is_decimal_palindrome,
+)
 
 
 def test_get_digits_single():
@@ -41,6 +47,35 @@ def test_from_digits_round_trip():
     digits = get_digits(9876)
     digits.reverse()
     assert from_digits(digits) == 9876
+
+
+def test_is_decimal_palindrome_single():
+    assert is_decimal_palindrome(7)
+
+
+def test_is_decimal_palindrome_two_digits():
+    assert is_decimal_palindrome(22)
+
+
+def test_is_decimal_palindrome_odd_length():
+    assert is_decimal_palindrome(12321)
+
+
+def test_is_decimal_palindrome_even_length():
+    assert is_decimal_palindrome(123321)
+
+
+def test_is_decimal_palindrome_not_palindrome():
+    assert not is_decimal_palindrome(1231)
+
+
+def test_is_decimal_palindrome_two_digits_false():
+    assert not is_decimal_palindrome(21)
+
+
+def test_is_decimal_palindrome_zero():
+    # get_digits(0) == [], which is treated as a palindrome
+    assert is_decimal_palindrome(0)
 
 
 def test_get_factors_one():
