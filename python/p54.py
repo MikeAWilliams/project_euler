@@ -200,21 +200,23 @@ def sort_values_for_rank(rank, hand):
     # assum hand is sorted
     vals = [c.val for c in hand]
     match(rank):
+        # get all the hands where the highest card just wins
         case HandRank.HIGH_CARD:
-           return vals[::-1] # return values in highest to lowest
+           return vals[::-1]
+        case HandRank.ROYAL_FLUSH:
+           return vals[::-1]
+        case HandRank.STRAIGHT:
+           return vals[::-1]
+        case HandRank.FLUSH:
+           return vals[::-1]
+        case HandRank.STRAIGHT_FLUSH:
+           return vals[::-1]
+        # now we have to deal with all the hands that use card counts
         case HandRank.ONE_PAIR:
         case HandRank.TWO_PAIRS:
         case HandRank.THREE_OF_A_KIND:
-        case HandRank.STRAIGHT:
-           return vals[::-1] # return values in highest to lowest
-        case HandRank.FLUSH:
-           return vals[::-1] # return values in highest to lowest
         case HandRank.FULL_HOUSE:
         case HandRank.FOUR_OF_A_KIND:
-        case HandRank.STRAIGHT_FLUSH:
-           return vals[::-1] # return values in highest to lowest
-        case HandRank.ROYAL_FLUSH:
-           return vals[::-1] # return values in highest to lowest
 
 working_hands = demo_hands
 # working_hands = mike_hands
