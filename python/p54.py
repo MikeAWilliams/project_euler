@@ -16,6 +16,16 @@ demo_hands = [
     "2H 2D 4C 4D 4S 3C 3D 3S 9S 9D",
 ]
 
+strait_not = ["2D 3H 4S 5C 6D 2H 4D 6S 8D 9C"]
+
+mike_hands = [
+    "TD JD QD KD AD 2H 3H 4H 5H 6H",
+    "2D JD QD KD AD 2H 2D 2S 2C 6H",
+    "2D 2D 3S 3S 3S 2H 3D 4S 5C 6H",
+    "2D 2D 2S 3S 4S 2H 2D 4S 4C 6H",
+    "2D 2D 3S 5S 4S 2H 4D 5S 6C 7H",
+]
+
 
 class Suit(Enum):
     DIAMONDS = 1
@@ -55,7 +65,7 @@ class Value(IntEnum):
         )
 
 
-class HandRank(Enum):
+class HandRank(IntEnum):
     HIGH_CARD = 1
     ONE_PAIR = 2
     TWO_PAIRS = 3
@@ -132,15 +142,80 @@ def string_to_hands(string):
     return p1, p2
 
 
+def is_flush(hand):
+    suits = set()
+    for c in hand:
+        suits.add(c.suit)
+    return len(suits) == 1
+
+
+def is_straight(hand):
+    # assums hand was sorted
+    vlast = hand[0].val
+    for i in range(1, 5):
+        if hand[i].val != vlast + 1:
+            return False
+        vlast = hand[i].val
+    return True
+
+
+def count_values(hand):
+    count = {}
+    for c in hand:
+        if c.val in count:
+            count[c.val] += 1
+        else:
+            count[c.val] = 1
+    vals = list(count.values())
+    vals.sort()
+    return vals
+
+
 def rank_hand(hand):
     hand.sort(key=lambda c: c.val)
-    return HandRank.FLUSH
+    hand_is_flush = is_flush(hand)
+    hand_is_straight = is_straight(hand)
+    if hand_is_flush:
+        if hand[0].val == Value.TEN:
+            return HandRank.ROYAL_FLUSH
+        if hand_is_straight:
+            return HandRank.STRAIGHT_FLUSH
+        return HandRank.FLUSH
+    count_tup = count_values(hand)
+    if len(count_tup) == 2:
+        if count_tup[0] == 1:
+            return HandRank.FOUR_OF_A_KIND
+        return HandRank.FULL_HOUSE
+    if hand_is_straight:
+        return HandRank.STRAIGHT
+    if len(count_tup) == 3:
+        if count_tup[2] == 3:
+            return HandRank.THREE_OF_A_KIND
+        return HandRank.TWO_PAIRS
+    if len(count_tup) == 4:
+        return HandRank.ONE_PAIR
+    return HandRank.HIGH_CARD
 
 
 working_hands = demo_hands
+# working_hands = mike_hands
+# working_hands = strait_not
+# working_hands = promblem_hands[0:5]
 
+p1_wins = 0
 for l in working_hands:
+    print(l)
     h1, h2 = string_to_hands(l)
     h1_rank = rank_hand(h1)
     h2_rank = rank_hand(h2)
-    print(h1, h1_rank, h2, h2_rank)
+    if h1_rank > h2_rank:
+        p1_wins += 1
+    elif h1_rank == h2_rank:
+        # determine the card in the ranking that counts
+        # hightest card wins
+        for index in range(4, 0, -1):
+            if h1[index].val > h2[index].val:
+                p1_wins += 1
+                break
+    # print(h1, h1_rank, h2, h2_rank)
+print(p1_wins)
