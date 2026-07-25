@@ -220,7 +220,7 @@ def sort_values_for_rank(rank, hand):
                     pairs.append(v)
                 else:
                     kickers.append(v)
-            kickers.sort()
+            kickers.sort(reverse=True)
             return pairs + kickers
         case HandRank.TWO_PAIRS:
             pairs = []
@@ -231,7 +231,7 @@ def sort_values_for_rank(rank, hand):
                 else:
                     kickers.append(v)
             pairs.sort(reverse=True)
-            kickers.sort()
+            kickers.sort(reverse=True)
             return pairs + kickers
         case HandRank.THREE_OF_A_KIND | HandRank.FULL_HOUSE:
             threes = []
@@ -241,7 +241,7 @@ def sort_values_for_rank(rank, hand):
                     threes.append(v)
                 else:
                     kickers.append(v)
-            kickers.sort()
+            kickers.sort(reverse=True)
             return threes + kickers
         case HandRank.FOUR_OF_A_KIND:
             fours = []
