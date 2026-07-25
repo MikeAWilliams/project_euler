@@ -196,6 +196,25 @@ def rank_hand(hand):
         return HandRank.ONE_PAIR
     return HandRank.HIGH_CARD
 
+def sort_values_for_rank(rank, hand):
+    # assum hand is sorted
+    vals = [c.val for c in hand]
+    match(rank):
+        case HandRank.HIGH_CARD:
+           return vals[::-1] # return values in highest to lowest
+        case HandRank.ONE_PAIR:
+        case HandRank.TWO_PAIRS:
+        case HandRank.THREE_OF_A_KIND:
+        case HandRank.STRAIGHT:
+           return vals[::-1] # return values in highest to lowest
+        case HandRank.FLUSH:
+           return vals[::-1] # return values in highest to lowest
+        case HandRank.FULL_HOUSE:
+        case HandRank.FOUR_OF_A_KIND:
+        case HandRank.STRAIGHT_FLUSH:
+           return vals[::-1] # return values in highest to lowest
+        case HandRank.ROYAL_FLUSH:
+           return vals[::-1] # return values in highest to lowest
 
 working_hands = demo_hands
 # working_hands = mike_hands
@@ -212,10 +231,14 @@ for l in working_hands:
         p1_wins += 1
     elif h1_rank == h2_rank:
         # determine the card in the ranking that counts
-        # hightest card wins
-        for index in range(4, 0, -1):
-            if h1[index].val > h2[index].val:
+        hand_by_rank_1 = sort_values_for_rank(h1_rank, h1)
+        hand_by_rank_2 = sort_values_for_rank(h2_rank, h2)
+        for index in range(5):
+            if hand_by_rank_1[index] > hand_by_rank_2[index]:
                 p1_wins += 1
                 break
-    # print(h1, h1_rank, h2, h2_rank)
+            elif hand_by_rank_2[index] > hand_by_rank_1[index]:
+                # p2 wins
+                break
+            # else it must be a tie keep looking
 print(p1_wins)
