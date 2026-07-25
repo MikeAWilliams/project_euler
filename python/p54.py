@@ -252,8 +252,7 @@ def sort_values_for_rank(rank, hand):
                 else:
                     kickers.append(v)
             return fours + kickers
-        case _:
-            raise Exception("what happened")
+    raise Exception("what happened")
 
 
 # working_hands = demo_hands
