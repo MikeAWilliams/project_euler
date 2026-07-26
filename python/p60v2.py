@@ -39,11 +39,9 @@ for i in range(len(primes) - 1):
     this_set = set()
     this_set.add(primes[i])
     stack = []
-    stack.append(this_set)
+    stack.append((this_set, i))
     while len(stack) > 0:
-        top = stack.pop()
-        max_in_top = max(top)
-        old_j = primes.index(max_in_top)
+        top, old_j = stack.pop()
         for j in range(old_j + 1, len(primes)):
             if can_add_to_set(primes[j], top, sieve, cache):
                 new_set = set(top)
@@ -51,7 +49,7 @@ for i in range(len(primes) - 1):
                 if len(new_set) == size:
                     candidates.append(new_set)
                 else:
-                    stack.append(new_set)
+                    stack.append((new_set, j))
 
 print("number of candidate sets", len(candidates))
 
