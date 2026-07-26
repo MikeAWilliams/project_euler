@@ -38,9 +38,10 @@ def is_decimal_palindrome(num):
     if len(digits) == 1:
         return True
     for index in range(len(digits) // 2):
-        if digits[index] != digits[len(digits)-index-1]:
+        if digits[index] != digits[len(digits) - index - 1]:
             return False
     return True
+
 
 class SieveOfEratosthenes:
     def __init__(self, size):
@@ -62,7 +63,7 @@ class SieveOfEratosthenes:
     def run_sieve(self):
         candidate = 3
         # search up to sqrt(size)
-        while candidate*candidate < self.size:
+        while candidate * candidate < self.size:
             # starting with 9 (3*3) because even is already false and odd before 9 is prime
             not_prime = candidate * candidate
             # advance forward by 2*candidate to skip even values which are already false
@@ -74,7 +75,6 @@ class SieveOfEratosthenes:
             candidate += 2
             while candidate < self.size and not self.flags[candidate]:
                 candidate += 2
-
 
     def is_prime(self, num):
         if num >= self.size or num < 0:
@@ -115,3 +115,18 @@ class SieveOfEratosthenes:
         if candidate > 1:
             result.append(candidate)
         return result
+
+
+def is_prime_by_division(num):
+    if num < 2:
+        return False
+    if num < 4:
+        return True
+    if num % 2 == 0:
+        return False
+    divisor = 3
+    while divisor * divisor <= num:
+        if num % divisor == 0:
+            return False
+        divisor += 2
+    return True

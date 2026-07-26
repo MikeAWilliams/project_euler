@@ -1,9 +1,10 @@
 from euler_lib import (
     SieveOfEratosthenes,
+    from_digits,
     get_digits,
     get_factors,
-    from_digits,
     is_decimal_palindrome,
+    is_prime_by_division,
 )
 
 
@@ -81,17 +82,22 @@ def test_is_decimal_palindrome_zero():
 def test_get_factors_one():
     assert get_factors(1) == [1]
 
+
 def test_get_factors_prime():
     assert get_factors(3) == [1, 3]
+
 
 def test_get_factors_perfect_square():
     assert get_factors(9) == [1, 3, 9]
 
+
 def test_get_factors_composite():
     assert get_factors(6) == [1, 2, 3, 6]
 
+
 def test_get_factors_28():
     assert get_factors(28) == [1, 2, 4, 7, 14, 28]
+
 
 def test_get_factors_500():
     assert get_factors(500) == [1, 2, 4, 5, 10, 20, 25, 50, 100, 125, 250, 500]
@@ -100,7 +106,16 @@ def test_get_factors_500():
 def test_sieve_primes_under_30():
     sieve = SieveOfEratosthenes(30)
     assert [n for n in range(30) if sieve.is_prime(n)] == [
-        2, 3, 5, 7, 11, 13, 17, 19, 23, 29
+        2,
+        3,
+        5,
+        7,
+        11,
+        13,
+        17,
+        19,
+        23,
+        29,
     ]
 
 
@@ -131,9 +146,7 @@ def test_sieve_nth_prime():
 
 def test_get_primes_in_sieve_under_30():
     sieve = SieveOfEratosthenes(30)
-    assert sieve.get_primes_in_sieve() == [
-        2, 3, 5, 7, 11, 13, 17, 19, 23, 29
-    ]
+    assert sieve.get_primes_in_sieve() == [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
 
 
 def test_get_primes_in_sieve_small():
@@ -143,9 +156,7 @@ def test_get_primes_in_sieve_small():
 
 def test_get_primes_in_sieve_matches_is_prime():
     sieve = SieveOfEratosthenes(100)
-    assert sieve.get_primes_in_sieve() == [
-        n for n in range(100) if sieve.is_prime(n)
-    ]
+    assert sieve.get_primes_in_sieve() == [n for n in range(100) if sieve.is_prime(n)]
 
 
 def test_get_prime_factors_prime():
@@ -203,3 +214,10 @@ def test_get_prime_factors_product_reconstructs():
             product *= f
         assert product == n
         assert all(sieve.is_prime(f) for f in factors)
+
+
+def test_is_prime_by_division():
+    assert not is_prime_by_division(-2)
+    sieve = SieveOfEratosthenes(1000)
+    for n in range(1000):
+        assert sieve.is_prime(n) == is_prime_by_division(n)
