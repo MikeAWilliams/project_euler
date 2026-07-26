@@ -1,11 +1,7 @@
-from euler_lib import SieveOfEratosthenes
+from euler_lib import is_prime_by_division
 
-print("computing the sieve")
 grid_size = 30001
-sieve = SieveOfEratosthenes(grid_size * grid_size)
 print("calculating")
-# unfortunately building the actual grid is to memory expensive.
-# Instead we will compute the new corner values at each size step
 
 prime_count = 0
 diagonal_count = 1
@@ -16,13 +12,13 @@ for size in range(3, grid_size, 2):
     c3 = c1 - 2 * size_minus_1
     c4 = c1 - 3 * size_minus_1
     diagonal_count += 4
-    if sieve.is_prime(c1):
+    if is_prime_by_division(c1):
         prime_count += 1
-    if sieve.is_prime(c2):
+    if is_prime_by_division(c2):
         prime_count += 1
-    if sieve.is_prime(c3):
+    if is_prime_by_division(c3):
         prime_count += 1
-    if sieve.is_prime(c4):
+    if is_prime_by_division(c4):
         prime_count += 1
     ratio = prime_count / diagonal_count
     if ratio < 0.1:
