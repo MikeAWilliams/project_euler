@@ -42,7 +42,9 @@ for i in range(len(primes) - 1):
     stack.append(this_set)
     while len(stack) > 0:
         top = stack.pop()
-        for j in range(i + 1, len(primes)):
+        max_in_top = max(top)
+        old_j = primes.index(max_in_top)
+        for j in range(old_j + 1, len(primes)):
             if can_add_to_set(primes[j], top, sieve, cache):
                 new_set = set(top)
                 new_set.add(primes[j])
