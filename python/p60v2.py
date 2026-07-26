@@ -1,5 +1,3 @@
-from readline import append_history_file
-
 from euler_lib import SieveOfEratosthenes, is_prime_by_division
 
 
@@ -40,11 +38,18 @@ for i in range(len(primes) - 1):
         print(i, i / len(primes))
     this_set = set()
     this_set.add(primes[i])
-    for j in range(i + 1, len(primes)):
-        if can_add_to_set(primes[j], this_set, sieve, cache):
-            this_set.add(primes[j])
-    if len(this_set) >= size:
-        candidates.append(this_set)
+    stack = []
+    stack.append(this_set)
+    while len(stack) > 0:
+        top = stack.pop()
+        for j in range(i + 1, len(primes)):
+            if can_add_to_set(primes[j], top, sieve, cache):
+                new_set = set(top)
+                new_set.add(primes[j])
+                if len(new_set) == size:
+                    candidates.append(new_set)
+                else:
+                    stack.append(new_set)
 
 print("number of candidate sets", len(candidates))
 
