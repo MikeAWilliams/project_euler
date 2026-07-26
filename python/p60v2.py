@@ -30,12 +30,14 @@ print("computing prime")
 sieve = SieveOfEratosthenes(10000)
 primes = sieve.get_primes_in_sieve()
 print("number of primes", len(primes))
-size = 4
-# size = 5
+# size = 4
+size = 5
 cache = {}
 candidates = []
 
 for i in range(len(primes) - 1):
+    if i % 100 == 0:
+        print(i, i / len(primes))
     this_set = set()
     this_set.add(primes[i])
     for j in range(i + 1, len(primes)):
